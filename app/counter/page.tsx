@@ -1,23 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
+import counterReducer from "./counterReducer";
 
 const CounterPage = () => {
-  const [count, setCount] = useState(0);
-
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const reset = () => {
-    setCount(0);
-  };
+  const [value, dispatch] = useReducer(counterReducer, 0);
 
   return (
-    <div className="flex flex-col w-full mt-10 space-y-3">
-      <div>{` ${count}`}</div>
-      <button onClick={increment}>Increment</button>
-      <button onClick={reset}>Reset</button>
+    <div className="flex flex-col w-full h-[100%] mt-10 space-y-3 justify-center items-center">
+      <div className="w-full flex items-center justify-center font-semibold text-[56px]">{` ${value}`}</div>
+      <button
+        className="bg-lime-900 w-96 p-4 text-white"
+        onClick={() => dispatch({ type: "INCREMENT" })}
+      >
+        Increment
+      </button>
+      <button
+        className="bg-lime-900 w-96 p-4 text-white"
+        onClick={() => dispatch({ type: "RESET" })}
+      >
+        Reset
+      </button>
     </div>
   );
 };
